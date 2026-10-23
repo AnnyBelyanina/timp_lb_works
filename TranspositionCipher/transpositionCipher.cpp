@@ -42,7 +42,9 @@ inline wstring TranspositionCipher::getValidText(const wstring& text){
 wstring TranspositionCipher:: encrypt(const wstring& text){
     wstring validText = getValidText(text);
     int s = validText.size();
-    if (s == 0) return L"";
+    if (cols  > s) {
+       throw cipher_error("Key is greater than lenght");
+    }
         
     int rows = (s + cols - 1) / cols;
     vector<vector<wchar_t>> table (rows, vector<wchar_t>(cols, L' '));
@@ -65,9 +67,10 @@ wstring TranspositionCipher:: encrypt(const wstring& text){
 wstring TranspositionCipher:: decrypt(const wstring& text){
     wstring validText = getValidText(text);
     int s = validText.size();
-    if (s == 0) return L"";
-        
-        
+    if (cols  > s) {
+       throw cipher_error("Key is greater than lenght");
+    }
+         
     
     int rows = (s + cols - 1) / cols;
     int full_rows = s / cols;             // сколько полных строк
