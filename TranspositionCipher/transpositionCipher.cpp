@@ -11,12 +11,11 @@ TranspositionCipher :: TranspositionCipher(int key){
     if (key == 1){
         throw cipher_error("Trivial transposition");
     }
+    cols = key;
     if (key > 10000){
         throw cipher_error("Key is too large");
     }
-    
     cols = key;
-
 }
 
 
@@ -42,8 +41,8 @@ inline wstring TranspositionCipher::getValidText(const wstring& text){
 wstring TranspositionCipher:: encrypt(const wstring& text){
     wstring validText = getValidText(text);
     int s = validText.size();
-    if (cols  > s) {
-       throw cipher_error("Key is greater than lenght");
+    if (cols  >= s) {
+       throw cipher_error("Key is greater than length - Trivial transposition");
     }
         
     int rows = (s + cols - 1) / cols;
@@ -67,8 +66,8 @@ wstring TranspositionCipher:: encrypt(const wstring& text){
 wstring TranspositionCipher:: decrypt(const wstring& text){
     wstring validText = getValidText(text);
     int s = validText.size();
-    if (cols  > s) {
-       throw cipher_error("Key is greater than lenght");
+    if (cols  >= s) {
+       throw cipher_error("Key is greater than length - Trivial transposition");
     }
          
     
