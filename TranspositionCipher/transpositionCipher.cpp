@@ -11,7 +11,6 @@ TranspositionCipher :: TranspositionCipher(int key){
     if (key == 1){
         throw cipher_error("Trivial transposition");
     }
-    cols = key;
     if (key > 10000){
         throw cipher_error("Key is too large");
     }
